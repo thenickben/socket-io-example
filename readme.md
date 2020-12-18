@@ -4,16 +4,17 @@ Simple boilerplate for testing a websocket connection and deploy the server only
 
 ## How to run
 
-1) Clone this repo:
+1- Clone this repo:
 
 `git clone https://github.com/thenickben/socket-io-example`
+
 `cd socket-io-example`
 
-2) Install dependencies:
+2- Install dependencies:
 
 `yarn install`
 
-2) Run:
+3- Run:
 
 `yarn run`
 
