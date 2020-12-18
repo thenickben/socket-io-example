@@ -16,7 +16,7 @@ Simple boilerplate for testing a websocket connection and deploy the server only
 
 3- Run:
 
-`yarn run`
+`yarn start`
 
 ![Demo](demo.png)
 
