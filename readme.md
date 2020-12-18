@@ -18,6 +18,8 @@ Simple boilerplate for testing a websocket connection and deploy the server only
 
 `yarn run`
 
+![Demo](demo.png)
+
 ## Deploy to heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
