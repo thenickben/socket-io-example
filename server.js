@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const express = require('express');
-const socketIO = require('socket.io');
+const express = require("express");
+const socketIO = require("socket.io");
 
 const PORT = process.env.PORT || 3000;
-const INDEX = '/index.html';
+const INDEX = "/index.html";
 
 const server = express()
   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
@@ -12,9 +12,14 @@ const server = express()
 
 const io = socketIO(server);
 
-io.on('connection', (socket) => {
-  console.log('Client connected');
-  socket.on('disconnect', () => console.log('Client disconnected'));
+io.on("connection", (socket) => {
+  console.log("Client connected");
+  socket.on("disconnect", () => console.log("Client disconnected"));
+  socket.emit("mensaje", "mensajito desde el server");
+
+  socket.on("client-mensaje", (msg) => {
+    console.log(msg);
+  });
 });
 
-setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
+setInterval(() => io.emit("time", new Date().toTimeString()), 1000);

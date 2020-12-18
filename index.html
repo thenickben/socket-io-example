@@ -2,16 +2,29 @@
   <head>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      let socket = io();
+      //let socket = io();
+      let socket = io.connect("http://localhost:3000");
       let el;
 
-      socket.on('time', (timeString) => {
-        el = document.getElementById('server-time');
-        el.innerHTML = 'Server time: ' + timeString;
+      // recibe continuamente del server
+      socket.on("time", (timeString) => {
+        el = document.getElementById("server-time");
+        el.innerHTML = "Server time: " + timeString;
       });
+
+      // recibe una sola vez
+      socket.on("mensaje", (msg) => {
+        el = document.getElementById("server-msg");
+        el.innerHTML = "Server message: " + msg;
+        console.log(msg);
+      });
+
+      // envia al server
+      socket.emit("client-mensaje", "mensajito desde el cliente");
     </script>
   </head>
   <body>
     <p id="server-time"></p>
+    <p id="server-msg">A verg</p>
   </body>
 </html>
