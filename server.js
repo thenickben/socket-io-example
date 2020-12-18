@@ -15,11 +15,14 @@ const io = socketIO(server);
 io.on("connection", (socket) => {
   console.log("Client connected");
   socket.on("disconnect", () => console.log("Client disconnected"));
-  socket.emit("mensaje", "mensajito desde el server");
 
-  socket.on("client-mensaje", (msg) => {
-    console.log(msg);
+  // receives a message from client
+  // and replies back
+  socket.on("client-msg", (msg) => {
+    console.log("server log - server received a message: " + msg);
+    socket.emit(
+      "server-reply",
+      "Thanks for the following message: '" + msg + "', very cute! ^^"
+    );
   });
 });
-
-setInterval(() => io.emit("time", new Date().toTimeString()), 1000);

@@ -2,29 +2,40 @@
   <head>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+      // On dev: server will run on localhost, either one
+      // of the following are enough:
       //let socket = io();
       let socket = io.connect("http://localhost:3000");
+
+      // On prod: server will be hosted, so client
+      // needs to point there (e.g. heroku app)
+      //let socket = io.connect("https://APP_NAME.herokuapp.com/", {
+      //  secure: true,
+      //});
       let el;
+      let msg;
 
-      // recibe continuamente del server
-      socket.on("time", (timeString) => {
-        el = document.getElementById("server-time");
-        el.innerHTML = "Server time: " + timeString;
+      // send to server
+      function sendMessage() {
+        msg = document.getElementById("input-client-message").value;
+        socket.emit("client-msg", msg);
+        console.log("client log - client sent a message");
+      }
+
+      // receive from server
+      socket.on("server-reply", (arg) => {
+        el = document.getElementById("id-server-reply");
+        el.innerHTML = arg;
       });
-
-      // recibe una sola vez
-      socket.on("mensaje", (msg) => {
-        el = document.getElementById("server-msg");
-        el.innerHTML = "Server message: " + msg;
-        console.log(msg);
-      });
-
-      // envia al server
-      socket.emit("client-mensaje", "mensajito desde el cliente");
     </script>
   </head>
   <body>
-    <p id="server-time"></p>
-    <p id="server-msg">A verg</p>
+    <h2>Client</h2>
+    <input type="text" id="input-client-message" style={{ width: "500px",
+    height: "50px" }}/>
+    <button onClick="sendMessage()">Send message</button>
+    <hr />
+    <h2>Server</h2>
+    <p id="id-server-reply"></p>
   </body>
 </html>
